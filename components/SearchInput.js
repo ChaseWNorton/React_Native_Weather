@@ -5,14 +5,23 @@ export default class SearchInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      text: '',
+      text: ""
     };
   }
-  handleChangeText = (text) => {
-    this.setState({text})
+  handleSubmitEditing = () => {
+    const { onSubmit } = this.props;
+    const { text } = this.state;
+
+    if (!text) return;
+    onSubmit(text);
+    this.setState({
+      text: ""
+    });
   };
 
-
+  handleChangeText = text => {
+    this.setState({ text });
+  };
 
   render() {
     const { placeholder } = this.props;
@@ -32,7 +41,6 @@ export default class SearchInput extends React.Component {
           onSubmitEditing={this.handleSubmitEditing}
         />
       </View>
-
     );
   }
 }
